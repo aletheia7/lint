@@ -15,6 +15,7 @@ import (
 	"go/printer"
 	"go/token"
 	"go/types"
+	"os"
 	"regexp"
 	"sort"
 	"strconv"
@@ -174,7 +175,9 @@ func (f *file) lint() {
 	f.lintImports()
 	f.lintBlankImports()
 	f.lintExported()
-	f.lintNames()
+	if os.Getenv("golint") != "erik" {
+		f.lintNames()
+	}
 	f.lintVarDecls()
 	f.lintElses()
 	f.lintRanges()
